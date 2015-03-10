@@ -1,0 +1,36 @@
+dbdata:
+  image: busybox
+  volumes:
+    - /var/lib/mysql
+
+db:
+  image: mariadb
+  environment:
+    MYSQL_ROOT_PASSWORD: example
+  volumes_from:
+    - dbdata
+
+wordpress:
+  image: wordpress:4.1-fpm
+  links:
+    - db:mysql
+
+nginx:
+  build: ./nginx
+  links:
+    - wordpress:wp
+  volumes_from:
+    - wordpress
+  ports:
+    - 80:80
+
+# DEMO
+#
+# fig build
+# fig up -d
+# fig ps
+# open http://$DOCKER_IP
+# ... setup the blog
+# fig stop
+# fig up -d
+# ... revisit the blog, still installed
