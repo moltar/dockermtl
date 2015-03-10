@@ -34,3 +34,4 @@ nginx:
 # fig stop
 # fig up -d
 # ... revisit the blog, still installed
+# ... explain /etc/hosts and show vhost.conf
